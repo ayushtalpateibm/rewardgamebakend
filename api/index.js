@@ -77,3 +77,6 @@ app.get('/', (req, res) => {
   res.send('Backend is working!');
 });
 
+
+
+export default app;
