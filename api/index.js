@@ -2,6 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import serverless from 'serverless-http'; // required for vercel
+
 dotenv.config();
 
 const app = express();
@@ -28,7 +30,7 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 // Create user
-app.post('/api/users', async (req, res) => {
+app.post('/users', async (req, res) => {
   try {
     const { name } = req.body;
     if (!name) return res.status(400).json({ error: 'Name is required' });
@@ -43,7 +45,7 @@ app.post('/api/users', async (req, res) => {
 });
 
 // Get users
-app.get('/api/users', async (req, res) => {
+app.get('/users', async (req, res) => {
   try {
     const users = await User.find();
     res.status(200).json(users);
@@ -53,7 +55,7 @@ app.get('/api/users', async (req, res) => {
 });
 
 // Claim points
-app.post('/api/claims', async (req, res) => {
+app.post('/claims', async (req, res) => {
   try {
     const { userId } = req.body;
     if (!userId) return res.status(400).json({ error: 'User ID is required' });
@@ -77,6 +79,4 @@ app.get('/', (req, res) => {
   res.send('Backend is working!');
 });
 
-
-
-export default app;
+export const handler = serverless(app);
