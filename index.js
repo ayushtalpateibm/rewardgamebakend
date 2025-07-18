@@ -2,9 +2,11 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import serverless from 'serverless-http'; // required for vercel
 
 dotenv.config();
+
+const PORT = process.env.PORT || 8080;
+
 
 const app = express();
 
@@ -79,4 +81,6 @@ app.get('/', (req, res) => {
   res.send('Backend is working!');
 });
 
-export const handler = serverless(app);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
