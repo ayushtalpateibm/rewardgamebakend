@@ -73,6 +73,10 @@ app.post('/api/claims', async (req, res) => {
   }
 });
 
+app.get('/', (req, res) => {
+  res.send('Backend is working!');
+});
+
 app.listen(process.env.PORT , () =>{
   console.log("server")
 })
