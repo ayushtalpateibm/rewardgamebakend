@@ -73,4 +73,6 @@ app.post('/api/claims', async (req, res) => {
   }
 });
 
-export default app;
+app.listen(process.env.PORT , () =>{
+  console.log("server")
+})
